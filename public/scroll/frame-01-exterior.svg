@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="Florida coastal home exterior warm day">
+  <defs>
+    <linearGradient id="s1sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="55%" stop-color="#7dd3fc"/>
+      <stop offset="100%" stop-color="#e0f7fa"/>
+    </linearGradient>
+    <linearGradient id="s1sun" cx="0" cy="0">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="100%" stop-color="#fbbf24"/>
+    </linearGradient>
+    <radialGradient id="s1glow" cx="82%" cy="16%" r="22%">
+      <stop offset="0%" stop-color="#fde68a" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#fde68a" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="s1roof" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a2a3a"/><stop offset="100%" stop-color="#0d3d4f"/>
+    </linearGradient>
+    <linearGradient id="s1lawn" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6ee7b7"/><stop offset="100%" stop-color="#0f766e"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#s1sky)"/>
+  <circle cx="980" cy="140" r="240" fill="url(#s1glow)"/>
+  <circle cx="980" cy="140" r="54" fill="#fde68a"/>
+  <g fill="#fff" opacity="0.35">
+    <ellipse cx="220" cy="160" rx="100" ry="30"/><ellipse cx="280" cy="150" rx="60" ry="24"/>
+    <ellipse cx="560" cy="120" rx="90" ry="26"/>
+  </g>
+  <rect y="620" width="1200" height="280" fill="#f8fafc"/>
+  <path d="M0 620c200 36 450 55 700 35 220-18 360-8 500 25v220H0z" fill="url(#s1lawn)"/>
+  <!-- palms -->
+  <g opacity="0.7">
+    <path d="M140 650c6-140 14-250 18-340 36 55 62 82 62 82-44-8-62-28-82-62 26 46 36 74 36 74-48-4-70-22-90-50 18 80 36 160 56 296z" fill="#0a2a3a"/>
+    <path d="M1080 640c-5-120-12-220-16-300-32 48-55 74-55 74 38-7 55-24 72-56-22 40-30 66-30 66 44-4 64-20 80-45-16 55-30 110-51 261z" fill="#0a2a3a"/>
+  </g>
+  <!-- house centered -->
+  <g transform="translate(280,280)">
+    <ellipse cx="320" cy="400" rx="340" ry="26" fill="#0a2a3a" opacity="0.15"/>
+    <rect x="40" y="140" width="560" height="250" rx="8" fill="#f8fafc"/>
+    <path d="M10 150 L320 10 L630 150 Z" fill="url(#s1roof)"/>
+    <rect x="80" y="200" width="100" height="78" rx="4" fill="#bae6fd" stroke="#0e7490" stroke-width="3"/>
+    <rect x="220" y="200" width="100" height="78" rx="4" fill="#bae6fd" stroke="#0e7490" stroke-width="3"/>
+    <rect x="360" y="200" width="100" height="78" rx="4" fill="#a5f3fc" stroke="#0e7490" stroke-width="3"/>
+    <rect x="500" y="200" width="70" height="78" rx="4" fill="#bae6fd" stroke="#0e7490" stroke-width="3"/>
+    <rect x="270" y="300" width="80" height="90" rx="4" fill="#0e7490"/>
+    <circle cx="332" cy="348" r="4" fill="#e0f7fa"/>
+    <rect x="250" y="390" width="120" height="12" fill="#cbd5e1"/>
+    <rect x="460" y="320" width="100" height="70" rx="4" fill="#e2e8f0"/>
+  </g>
+  <!-- soft shrubs -->
+  <ellipse cx="260" cy="680" rx="70" ry="28" fill="#14b8a6" opacity="0.55"/>
+  <ellipse cx="900" cy="690" rx="90" ry="32" fill="#0e7490" opacity="0.5"/>
+</svg>

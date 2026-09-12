@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200" preserveAspectRatio="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="waveFade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#14b8a6" stop-opacity="0.05"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="200" fill="url(#waveFade)"/>
+  <path d="M0 120c60-30 120-30 180 0s120 30 180 0 120-30 180 0 120 30 180 0 120-30 180 0v80H0z" fill="#14b8a6" opacity="0.12"/>
+  <path d="M0 140c50-22 100-22 150 0s100 22 150 0 100-22 150 0 100 22 150 0 100-22 150 0 50-11 50 0v60H0z" fill="#38bdf8" opacity="0.1"/>
+  <path d="M0 80c70-18 140-18 210 0s140 18 210 0 140-18 210 0 140 18 170 0" fill="none" stroke="#e0f7fa" stroke-width="1.5" opacity="0.35"/>
+  <path d="M0 55c80-14 160-14 240 0s160 14 240 0 160-14 240 0 80 7 80 0" fill="none" stroke="#67e8f9" stroke-width="1.2" opacity="0.28"/>
+</svg>

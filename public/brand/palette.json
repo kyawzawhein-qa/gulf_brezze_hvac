@@ -1,0 +1,79 @@
+{
+  "name": "Gulf Breeze HVAC",
+  "context": "Fictional demo contractor for Southwest Florida HVAC sales demos",
+  "tokens": {
+    "gb-navy": {
+      "hex": "#0a2a3a",
+      "usage": ["primary text on light", "header/footer backgrounds", "dark section fills"],
+      "role": "bg|text"
+    },
+    "gb-deep": {
+      "hex": "#0d3d4f",
+      "usage": ["navy gradient partner", "chat header", "deep panels"],
+      "role": "bg"
+    },
+    "gb-teal": {
+      "hex": "#0e7490",
+      "usage": ["secondary brand", "icon default", "links", "secondary buttons"],
+      "role": "accent"
+    },
+    "gb-aqua": {
+      "hex": "#14b8a6",
+      "usage": ["highlight accent", "gradients with teal", "focus rings (with navy)"],
+      "role": "accent"
+    },
+    "gb-sky": {
+      "hex": "#38bdf8",
+      "usage": ["soft sky accents", "decorative strokes", "stat highlights on navy"],
+      "role": "accent"
+    },
+    "gb-foam": {
+      "hex": "#e0f7fa",
+      "usage": ["soft tint backgrounds", "badges", "icon wells"],
+      "role": "bg"
+    },
+    "gb-sand": {
+      "hex": "#f8fafc",
+      "usage": ["page background", "light section fills"],
+      "role": "bg"
+    },
+    "gb-coral": {
+      "hex": "#f97316",
+      "usage": ["primary CTA start", "btn-primary gradient"],
+      "role": "CTA"
+    },
+    "gb-coral-dark": {
+      "hex": "#ea580c",
+      "usage": ["primary CTA end", "hover depth"],
+      "role": "CTA"
+    },
+    "gb-slate": {
+      "hex": "#334155",
+      "usage": ["secondary body text when navy feels heavy"],
+      "role": "text"
+    },
+    "gb-muted": {
+      "hex": "#64748b",
+      "usage": ["supporting copy", "labels", "meta"],
+      "role": "text"
+    },
+    "white": {
+      "hex": "#ffffff",
+      "usage": ["text on navy", "cards", "CTA label"],
+      "role": "bg|text"
+    }
+  },
+  "contrast": {
+    "preferred": [
+      "navy (#0a2a3a) on sand/foam/white",
+      "white on navy/deep",
+      "coral CTA with white label on navy sections",
+      "teal/aqua accents on sand or foam"
+    ],
+    "avoid": [
+      "coral text on navy without checking WCAG",
+      "muted (#64748b) for small text on teal fills",
+      "sky (#38bdf8) as sole text color on white"
+    ]
+  }
+}

@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Coastal Florida home with cool gulf breeze">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0d3d4f"/>
+      <stop offset="35%" stop-color="#0e7490"/>
+      <stop offset="70%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#e0f7fa"/>
+    </linearGradient>
+    <linearGradient id="gulf" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#14b8a6"/>
+      <stop offset="100%" stop-color="#0e7490"/>
+    </linearGradient>
+    <linearGradient id="house" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#e2e8f0"/>
+    </linearGradient>
+    <linearGradient id="roof" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a2a3a"/>
+      <stop offset="100%" stop-color="#0d3d4f"/>
+    </linearGradient>
+    <linearGradient id="lawn" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5eead4"/>
+      <stop offset="100%" stop-color="#0f766e"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="78%" cy="18%" r="18%">
+      <stop offset="0%" stop-color="#fde68a" stop-opacity="0.95"/>
+      <stop offset="60%" stop-color="#fbbf24" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#fbbf24" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="coolAir" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#67e8f9" stop-opacity="0"/>
+      <stop offset="40%" stop-color="#67e8f9" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#e0f7fa" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <circle cx="1240" cy="160" r="220" fill="url(#sun)"/>
+
+  <!-- Soft clouds -->
+  <g fill="#ffffff" opacity="0.28">
+    <ellipse cx="280" cy="140" rx="120" ry="36"/>
+    <ellipse cx="340" cy="128" rx="70" ry="28"/>
+    <ellipse cx="980" cy="110" rx="140" ry="32"/>
+    <ellipse cx="1040" cy="98" rx="80" ry="26"/>
+  </g>
+
+  <!-- Distant gulf water -->
+  <path d="M0 520c180-40 360-60 540-40 220 24 400 60 620 40 140-14 280-40 440-20v400H0z" fill="url(#gulf)" opacity="0.55"/>
+  <path d="M0 560c200-28 400-40 600-20s400 50 640 30c140-12 240-30 360-18v348H0z" fill="#0e7490" opacity="0.35"/>
+
+  <!-- Ground / sand lawn -->
+  <path d="M0 620h1600v280H0z" fill="#f1f5f9"/>
+  <path d="M0 620c220 40 480 60 780 40 260-18 520-10 820 30v210H0z" fill="url(#lawn)" opacity="0.85"/>
+
+  <!-- Left open space intentional for headline overlay (soft gradient veil) -->
+  <rect x="0" y="0" width="640" height="900" fill="#0a2a3a" opacity="0.08"/>
+
+  <!-- Palm silhouettes (subtle, not kitschy) -->
+  <g fill="#0a2a3a" opacity="0.45">
+    <path d="M180 640c8-120 18-220 22-300 40 60 70 90 70 90-50-10-70-30-92-70 30 50 40 80 40 80-55-5-80-25-100-55 20 70 40 140 60 255z"/>
+    <path d="M1480 600c-6-100-14-190-18-260-35 50-60 78-60 78 42-8 60-26 78-60-25 42-34 70-34 70 48-4 70-22 88-48-18 60-34 120-54 220z"/>
+  </g>
+
+  <!-- House body (right-weighted composition) -->
+  <g transform="translate(720,330)">
+    <!-- Shadow -->
+    <ellipse cx="280" cy="430" rx="300" ry="28" fill="#0a2a3a" opacity="0.18"/>
+    <!-- Main mass -->
+    <rect x="40" y="140" width="480" height="260" rx="8" fill="url(#house)"/>
+    <!-- Roof -->
+    <path d="M20 150 L280 20 L540 150 Z" fill="url(#roof)"/>
+    <rect x="250" y="40" width="36" height="70" rx="4" fill="#334155"/>
+    <!-- Garage wing -->
+    <rect x="420" y="200" width="200" height="200" rx="6" fill="#e2e8f0"/>
+    <path d="M410 210 L520 120 L630 210 Z" fill="#0d3d4f"/>
+    <!-- Windows -->
+    <g>
+      <rect x="80" y="200" width="90" height="70" rx="4" fill="#bae6fd" stroke="#0e7490" stroke-width="3"/>
+      <rect x="200" y="200" width="90" height="70" rx="4" fill="#bae6fd" stroke="#0e7490" stroke-width="3"/>
+      <rect x="320" y="200" width="90" height="70" rx="4" fill="#a5f3fc" stroke="#0e7490" stroke-width="3"/>
+      <rect x="80" y="200" width="90" height="28" fill="#ffffff" opacity="0.25"/>
+    </g>
+    <!-- Door -->
+    <rect x="230" y="300" width="70" height="100" rx="4" fill="#0e7490"/>
+    <circle cx="285" cy="352" r="4" fill="#f8fafc"/>
+    <!-- Porch steps -->
+    <rect x="210" y="400" width="110" height="12" rx="2" fill="#cbd5e1"/>
+    <rect x="200" y="412" width="130" height="10" rx="2" fill="#94a3b8"/>
+    <!-- Garage door -->
+    <rect x="450" y="250" width="150" height="140" rx="4" fill="#f8fafc" stroke="#94a3b8" stroke-width="3"/>
+    <path d="M460 280h130M460 310h130M460 340h130" stroke="#cbd5e1" stroke-width="2"/>
+  </g>
+
+  <!-- AC condenser near wall -->
+  <g transform="translate(1180,620)">
+    <rect x="0" y="0" width="70" height="55" rx="6" fill="#334155"/>
+    <rect x="6" y="6" width="58" height="30" rx="3" fill="#0a2a3a"/>
+    <path d="M12 14h46M12 20h46M12 26h46" stroke="#64748b" stroke-width="2"/>
+    <rect x="10" y="40" width="50" height="8" rx="2" fill="#475569"/>
+    <!-- Cool air wisps -->
+    <path d="M-10 10c-20-8-40-6-55 4" fill="none" stroke="#67e8f9" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+    <path d="M-8 22c-18-6-36-4-50 6" fill="none" stroke="#14b8a6" stroke-width="2.5" stroke-linecap="round" opacity="0.65"/>
+    <path d="M-6 34c-16-5-30-3-42 5" fill="none" stroke="#e0f7fa" stroke-width="2" stroke-linecap="round" opacity="0.55"/>
+  </g>
+
+  <!-- Soft cool air veil across mid-right -->
+  <ellipse cx="1100" cy="520" rx="280" ry="90" fill="url(#coolAir)"/>
+
+  <!-- Foreground breeze lines (left stays quieter for copy) -->
+  <g fill="none" stroke="#e0f7fa" stroke-linecap="round" opacity="0.35">
+    <path d="M700 240c80-20 160-20 240 0" stroke-width="2"/>
+    <path d="M740 270c70-16 140-16 210 0" stroke-width="1.5"/>
+  </g>
+</svg>

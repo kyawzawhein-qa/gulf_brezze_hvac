@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 240" role="img" aria-label="Gulf Breeze story scenes">
+  <defs>
+    <linearGradient id="fsSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e0f7fa"/><stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="240" rx="24" fill="url(#fsSky)"/>
+  <!-- scene 1 home -->
+  <g transform="translate(40,40)">
+    <rect width="200" height="160" rx="16" fill="#fff" stroke="#cbd5e1"/>
+    <path d="M40 100 L100 50 L160 100 V150 H40 Z" fill="#f1f5f9" stroke="#0a2a3a" stroke-width="2"/>
+    <path d="M40 100 L100 50 L160 100" fill="#0a2a3a"/>
+    <rect x="85" y="115" width="30" height="35" fill="#0e7490"/>
+    <text x="100" y="28" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="12" font-weight="700" fill="#0e7490">01 HOME</text>
+  </g>
+  <!-- scene 2 condenser -->
+  <g transform="translate(270,40)">
+    <rect width="200" height="160" rx="16" fill="#fff" stroke="#cbd5e1"/>
+    <rect x="70" y="60" width="60" height="80" rx="6" fill="#334155"/>
+    <circle cx="100" cy="95" r="18" fill="none" stroke="#14b8a6" stroke-width="3"/>
+    <path d="M140 80c20-4 36-2 48 8" stroke="#67e8f9" stroke-width="2" fill="none"/>
+    <text x="100" y="28" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="12" font-weight="700" fill="#0e7490">02 UNIT</text>
+  </g>
+  <!-- scene 3 ducts -->
+  <g transform="translate(500,40)">
+    <rect width="200" height="160" rx="16" fill="#fff" stroke="#cbd5e1"/>
+    <rect x="85" y="45" width="30" height="22" rx="3" fill="#0a2a3a"/>
+    <path d="M100 67 V95 H60 V130 M100 95 H140 V130" stroke="#64748b" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <path d="M100 75 v15M80 95 h-12M120 95 h12" stroke="#38bdf8" stroke-width="2" fill="none"/>
+    <text x="100" y="28" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="12" font-weight="700" fill="#0e7490">03 DUCTS</text>
+  </g>
+  <!-- scene 4 comfort -->
+  <g transform="translate(730,40)">
+    <rect width="200" height="160" rx="16" fill="#fff" stroke="#cbd5e1"/>
+    <circle cx="100" cy="95" r="36" fill="#e0f7fa" stroke="#14b8a6" stroke-width="3"/>
+    <text x="100" y="102" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="20" font-weight="800" fill="#0a2a3a">72°</text>
+    <text x="100" y="28" text-anchor="middle" font-family="ui-sans-serif,system-ui,sans-serif" font-size="12" font-weight="700" fill="#0e7490">04 COOL</text>
+  </g>
+  <!-- connectors -->
+  <g stroke="#14b8a6" stroke-width="2" stroke-dasharray="4 4" opacity="0.6">
+    <path d="M240 120 H270"/><path d="M470 120 H500"/><path d="M700 120 H730"/>
+  </g>
+</svg>

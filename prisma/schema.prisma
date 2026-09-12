@@ -1,0 +1,155 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+/// Singleton site-wide settings (id = 1)
+model SiteSettings {
+  id                    Int      @id @default(1)
+  brandName             String   @default("Gulf Breeze HVAC")
+  tagline               String   @default("Lee County · 24/7 Emergency")
+  phone                 String   @default("(239) 555-0147")
+  phoneHref             String   @default("tel:+12395550147")
+  serviceCities         String   @default("[]") // JSON string array
+  demoBadgeText         String   @default("Sample / Demo Site")
+  footerBlurb           String   @default("Sample contractor site · Fort Myers, Cape Coral, Bonita Springs, Lehigh Acres, Estero")
+  heroImagePath         String   @default("")
+  logoMarkPath          String   @default("/brand/logo-mark.svg")
+  logoWordmarkPath      String   @default("/brand/logo-wordmark.svg")
+  logoMarkWhitePath     String   @default("/brand/logo-mark-white.svg")
+  logoWordmarkWhitePath String   @default("/brand/logo-wordmark-white.svg")
+  chatAvatarPath        String   @default("/ui/chat-avatar.webp")
+  updatedAt             DateTime @updatedAt
+}
+
+model HeroContent {
+  id           Int    @id @default(1)
+  eyebrow      String @default("Average callback under 45 minutes")
+  headline     String @default("Ready for cool air again?")
+  subhead      String @default("Fort Myers, Cape Coral, Bonita Springs, Lehigh Acres & Estero — talk to our AI dispatcher or book a tech in minutes.")
+  primaryCta   String @default("Book Appointment")
+  secondaryCta String @default("Chat with AI Dispatcher")
+}
+
+model StoryCaption {
+  id        Int    @id @default(autoincrement())
+  at        Float
+  text      String
+  sortOrder Int    @default(0)
+}
+
+model ServiceItem {
+  id        Int    @id @default(autoincrement())
+  title     String
+  desc      String
+  badge     String @default("")
+  iconPath  String @default("")
+  sortOrder Int    @default(0)
+}
+
+model ServicesSection {
+  id          Int    @id @default(1)
+  eyebrow     String @default("What we do")
+  heading     String @default("Full-spectrum HVAC for Lee County homes")
+  subhead     String @default("From midnight no-cool emergencies to planned replacements — one local team that shows up prepared.")
+  areaTitle   String @default("Service area — Lee County, Florida")
+  areaSubhead String @default("Licensed & insured. Proudly serving coastal Southwest Florida.")
+}
+
+model HowStep {
+  id        Int    @id @default(autoincrement())
+  title     String
+  body      String
+  detail    String @default("")
+  sortOrder Int    @default(0)
+}
+
+model HowSection {
+  id      Int    @id @default(1)
+  eyebrow String @default("How it works")
+  heading String @default("From chat to cool air in three calm steps")
+  subhead String @default("Built for urgent Florida heat — without the chaos. This flow is the demo narrative we walk through on sales calls.")
+}
+
+model Review {
+  id        Int    @id @default(autoincrement())
+  name      String
+  city      String
+  text      String
+  stars     Int    @default(5)
+  sortOrder Int    @default(0)
+}
+
+model Stat {
+  id        Int    @id @default(autoincrement())
+  value     String
+  label     String
+  group     String @default("trust") // "hero" | "trust"
+  sortOrder Int    @default(0)
+}
+
+model TrustSection {
+  id      Int    @id @default(1)
+  eyebrow String @default("Trust & proof")
+  heading String @default("Neighbors across Lee County already breathe easier")
+  subhead String @default("Plausible demo reviews and stats for pitch conversations — not live review-platform data.")
+}
+
+model FinalCta {
+  id           Int    @id @default(1)
+  eyebrow      String @default("Ready when you are")
+  heading      String @default("Don't wait out another Florida afternoon without AC")
+  body         String @default("Book a slot, chat with the demo AI dispatcher, or call our sample line. Perfect for walking a prospect through the Gulf Breeze experience.")
+  primaryBtn   String @default("Open AI Chat")
+  secondaryBtn String @default("Call")
+  tertiaryBtn  String @default("Back to top")
+  footnote     String @default("Demo only — bookings, SMS, and phone routing are simulated for sales pitches.")
+}
+
+model ChatSettings {
+  id          Int    @id @default(1)
+  welcomeText String @default("Hi — I'm the Gulf Breeze AI dispatcher (demo). I can help book emergency AC service in Lee County, FL. Ready?")
+  validZips   String @default("") // comma-separated
+  launcherLabel String @default("24/7 Chat")
+}
+
+model ChatIssue {
+  id        String @id
+  label     String
+  sortOrder Int    @default(0)
+}
+
+model ChatSlot {
+  id        String @id
+  label     String
+  note      String @default("")
+  sortOrder Int    @default(0)
+}
+
+model DesignTokens {
+  id         Int    @id @default(1)
+  navy       String @default("#0a2a3a")
+  deep       String @default("#0d3d4f")
+  teal       String @default("#0e7490")
+  aqua       String @default("#14b8a6")
+  sky        String @default("#38bdf8")
+  foam       String @default("#e0f7fa")
+  sand       String @default("#f8fafc")
+  coral      String @default("#f97316")
+  coralDark  String @default("#ea580c")
+  slate      String @default("#334155")
+  muted      String @default("#64748b")
+}
+
+model MediaAsset {
+  id        Int      @id @default(autoincrement())
+  path      String   @unique
+  filename  String
+  mimeType  String   @default("image/webp")
+  bytes     Int      @default(0)
+  createdAt DateTime @default(now())
+}

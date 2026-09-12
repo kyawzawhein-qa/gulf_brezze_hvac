@@ -1,0 +1,3 @@
+DONE — 36 photoreal WebP frames (Ken Burns + crossfade from villa keyframes).
+SVG masters in svg/ are legacy and unused by this pack.
+See SEQUENCE.md + manifest.json.

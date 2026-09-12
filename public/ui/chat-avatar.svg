@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Gulf Breeze AI dispatcher">
+  <defs>
+    <linearGradient id="avBg" x1="8" y1="4" x2="56" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0e7490"/>
+      <stop offset="100%" stop-color="#0a2a3a"/>
+    </linearGradient>
+    <linearGradient id="avFace" x1="20" y1="18" x2="44" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#e0f7fa"/>
+      <stop offset="100%" stop-color="#67e8f9"/>
+    </linearGradient>
+  </defs>
+  <circle cx="32" cy="32" r="30" fill="url(#avBg)"/>
+  <circle cx="32" cy="32" r="30" fill="none" stroke="#14b8a6" stroke-width="2" opacity="0.45"/>
+  <!-- Friendly headset tech -->
+  <circle cx="32" cy="28" r="12" fill="url(#avFace)"/>
+  <path d="M20 28a12 12 0 0124 0" fill="none" stroke="#0a2a3a" stroke-width="2.5" stroke-linecap="round" opacity="0.35"/>
+  <rect x="17" y="26" width="4" height="10" rx="2" fill="#14b8a6"/>
+  <rect x="43" y="26" width="4" height="10" rx="2" fill="#14b8a6"/>
+  <path d="M21 31h-3a4 4 0 00-4 4v2a3 3 0 003 3h1" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="27.5" cy="27.5" r="1.4" fill="#0a2a3a"/>
+  <circle cx="36.5" cy="27.5" r="1.4" fill="#0a2a3a"/>
+  <path d="M28 33.5c1.2 1.4 2.8 2.1 4 2.1s2.8-.7 4-2.1" fill="none" stroke="#0e7490" stroke-width="1.6" stroke-linecap="round"/>
+  <!-- Soft breeze hint -->
+  <path d="M22 48c4-3 8-4 12-3s8 1 12-1" fill="none" stroke="#67e8f9" stroke-width="1.8" stroke-linecap="round" opacity="0.8"/>
+</svg>

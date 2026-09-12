@@ -1,0 +1,3 @@
+DONE — photoreal keyframes + 36-frame scrub pack + hero
+Generated with Pillow Ken Burns + crossfade (no video AI).
+See ART-NOTES.md and ../sequence/SEQUENCE.md.
