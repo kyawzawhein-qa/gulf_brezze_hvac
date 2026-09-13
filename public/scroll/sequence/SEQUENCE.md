@@ -1,49 +1,43 @@
-# Gulf Breeze HVAC — Scroll Scrub Sequence (video-derived)
+# Gulf Breeze HVAC — Scroll Scrub Sequence (single-entry fly-through)
 
-**Real camera fly-through** from Wan 3.0 first→last keyframe clips (not Ken Burns).
+**One continuous camera story** — exterior entry once, then through every room.
 
 ## Specs
 
 | Property | Value |
 |----------|--------|
-| Frame count | **210** |
+| Frame count | **178** |
 | Dimensions | **1920 × 1080** (16:9) |
 | Source FPS extract | **15** |
-| Duration | **~14s** master |
-| Naming | `frame_001.webp` … `frame_210.webp` |
+| Duration | **~11.9s** scrubbed |
+| Naming | `frame_001.webp` … `frame_178.webp` |
 | Public URL prefix | `/scroll/sequence/` |
-| Master MP4 | `/scroll/keyframes/hvac_keyframes_master.mp4` (~25MB) |
-| Clips | `/scroll/keyframes/clips/clip{1,2,3}.mp4` |
 
-## Phase 5 captions (scroll % → frames)
+## Story map (published)
 
-| Scroll % | Frames | Caption |
-|----------|--------|---------|
-| **0% – 25%** | **1–53** | Blistering Florida Heat Outside? Stay 100% Cool Inside. |
-| **25% – 55%** | **54–116** | Engineered for Southwest Florida Humidity & Comfort. |
-| **55% – 85%** | **117–179** | Whisper-Quiet, Zoned Temperature Control in Every Room. |
-| **85% – 100%** | **180–210** | Voted Best HVAC Contractor in Lee County. |
+| Segment | Source frames | Motion |
+|---------|---------------|--------|
+| Entry | 1–75 | Aerial exterior → living (clip 1) |
+| Interior tour | 76–178 | Living → hallway → bedroom → bath (clips 2–3, trimmed) |
 
-## Clip → frame map
+## Trim note (v3)
 
-| Clip | Motion | Seconds | Frames |
-|------|--------|---------|--------|
-| 1 | Exterior sky dive → living (open glass) | 5 | 1–75 |
-| 2 | Living → hallway → bedroom | 5 | 76–150 |
-| 3 | Bedroom → ensuite bathroom | 4 | 151–210 |
+Wan clip 2 originally restarted from the **aerial exterior** at source frame 076 (visually identical to frame 001), causing a second “fly into the house” mid-scroll. **Frames 76–107 were dropped.** Published frame 076 is source frame 108 (living-room interior); the story continues forward from there. Clip 3 (bedroom → bath) required no trim.
+
+Rebuild: `python3 scripts/rebuild_continuous_sequence.py`
+
+## Captions (scroll %)
+
+| Scroll % | Caption |
+|----------|---------|
+| **0% – 28%** | Blistering Florida Heat Outside? Stay 100% Cool Inside. |
+| **28% – 52%** | Engineered for Southwest Florida Humidity & Comfort. |
+| **52% – 82%** | Whisper-Quiet, Zoned Temperature Control in Every Room. |
+| **82% – 100%** | Voted Best HVAC Contractor in Lee County. |
 
 ## Scrub usage
 
 ```ts
-const index = Math.min(frameCount, Math.max(1, Math.round(p * (frameCount - 1)) + 1));
-// src = `/scroll/sequence/frame_${String(index).padStart(3,'0')}.webp`
+const index = Math.min(frameCount - 1, Math.max(0, Math.round(p * (frameCount - 1))));
+// src = `/scroll/sequence/frame_${String(index + 1).padStart(3, "0")}.webp`
 ```
-
-Preload recommended; total sequence ~20MB WebP.
-
-## Generation notes
-
-- Model: Higgsfield **Wan 3.0** (`wan3_0`), first_image + end_image roles, 720p upscaled to 1920×1080 for extract
-- Audio disabled to save credits
-- Concat via ffmpeg; extract: `fps=15,scale=1920:-1` libwebp q80
-- Cyan `#00E5FF` airflow preserved from keyframe stills where the model retained it

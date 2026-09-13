@@ -1,12 +1,32 @@
 {
-  "version": 2,
-  "source": "wan3_0_first_last_frame",
+  "version": 3,
+  "source": "wan3_0_trimmed_single_entry",
   "width": 1920,
   "height": 1080,
-  "frameCount": 210,
+  "frameCount": 178,
   "fps": 15,
-  "durationSeconds": 14,
+  "durationSeconds": 11.87,
   "pattern": "frame_{###}.webp",
+  "trim": {
+    "reason": "Clip 2 frames 76\u2013107 duplicated the aerial exterior entry; removed.",
+    "keptRanges": [
+      {
+        "from": 1,
+        "to": 75
+      },
+      {
+        "from": 108,
+        "to": 210
+      }
+    ],
+    "droppedRanges": [
+      {
+        "from": 76,
+        "to": 107
+      }
+    ],
+    "originalFrameCount": 210
+  },
   "frames": [
     "/scroll/sequence/frame_001.webp",
     "/scroll/sequence/frame_002.webp",
@@ -185,105 +205,40 @@
     "/scroll/sequence/frame_175.webp",
     "/scroll/sequence/frame_176.webp",
     "/scroll/sequence/frame_177.webp",
-    "/scroll/sequence/frame_178.webp",
-    "/scroll/sequence/frame_179.webp",
-    "/scroll/sequence/frame_180.webp",
-    "/scroll/sequence/frame_181.webp",
-    "/scroll/sequence/frame_182.webp",
-    "/scroll/sequence/frame_183.webp",
-    "/scroll/sequence/frame_184.webp",
-    "/scroll/sequence/frame_185.webp",
-    "/scroll/sequence/frame_186.webp",
-    "/scroll/sequence/frame_187.webp",
-    "/scroll/sequence/frame_188.webp",
-    "/scroll/sequence/frame_189.webp",
-    "/scroll/sequence/frame_190.webp",
-    "/scroll/sequence/frame_191.webp",
-    "/scroll/sequence/frame_192.webp",
-    "/scroll/sequence/frame_193.webp",
-    "/scroll/sequence/frame_194.webp",
-    "/scroll/sequence/frame_195.webp",
-    "/scroll/sequence/frame_196.webp",
-    "/scroll/sequence/frame_197.webp",
-    "/scroll/sequence/frame_198.webp",
-    "/scroll/sequence/frame_199.webp",
-    "/scroll/sequence/frame_200.webp",
-    "/scroll/sequence/frame_201.webp",
-    "/scroll/sequence/frame_202.webp",
-    "/scroll/sequence/frame_203.webp",
-    "/scroll/sequence/frame_204.webp",
-    "/scroll/sequence/frame_205.webp",
-    "/scroll/sequence/frame_206.webp",
-    "/scroll/sequence/frame_207.webp",
-    "/scroll/sequence/frame_208.webp",
-    "/scroll/sequence/frame_209.webp",
-    "/scroll/sequence/frame_210.webp"
+    "/scroll/sequence/frame_178.webp"
   ],
   "captions": [
     {
-      "at": 0,
+      "at": 0.0,
       "text": "Blistering Florida Heat Outside? Stay 100% Cool Inside.",
       "frames": [
         1,
-        53
+        50
       ]
     },
     {
       "at": 0.25,
       "text": "Engineered for Southwest Florida Humidity & Comfort.",
       "frames": [
-        54,
-        116
+        51,
+        93
       ]
     },
     {
       "at": 0.55,
       "text": "Whisper-Quiet, Zoned Temperature Control in Every Room.",
       "frames": [
-        117,
-        179
+        94,
+        146
       ]
     },
     {
       "at": 0.85,
       "text": "Voted Best HVAC Contractor in Lee County.",
       "frames": [
-        180,
-        210
+        147,
+        178
       ]
     }
-  ],
-  "clips": [
-    {
-      "id": "clip1",
-      "from": "kf-01-exterior",
-      "to": "kf-02-living",
-      "seconds": 5,
-      "frames": [
-        1,
-        75
-      ]
-    },
-    {
-      "id": "clip2",
-      "from": "kf-02-living",
-      "to": "kf-03-bedroom",
-      "seconds": 5,
-      "frames": [
-        76,
-        150
-      ]
-    },
-    {
-      "id": "clip3",
-      "from": "kf-03-bedroom",
-      "to": "kf-04-bathroom",
-      "seconds": 4,
-      "frames": [
-        151,
-        210
-      ]
-    }
-  ],
-  "master": "/scroll/keyframes/hvac_keyframes_master.mp4"
+  ]
 }
