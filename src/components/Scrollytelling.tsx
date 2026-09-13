@@ -5,8 +5,9 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   FALLBACK_CAPTIONS,
-  FALLBACK_FRAMES,
+  frameIndexForProgress,
   loadScrollFrames,
+  scrollLengthForFrameCount,
   type FramesManifest,
   type ScrollCaption,
 } from "@/lib/scrollFrames";
@@ -19,6 +20,8 @@ const REDUCED_STATIC = [
   { src: "/scroll/keyframes/kf-03-bedroom.webp", label: "Bedroom" },
 ];
 
+const SEQUENCE_POSTER = "/scroll/sequence/frame_001.webp";
+
 function captionIndexForProgress(captions: ScrollCaption[], p: number) {
   let idx = 0;
   for (let i = 0; i < captions.length; i++) {
@@ -28,11 +31,11 @@ function captionIndexForProgress(captions: ScrollCaption[], p: number) {
 }
 
 function loadImage(src: string) {
-  return new Promise<HTMLImageElement>((resolve) => {
+  return new Promise<HTMLImageElement | null>((resolve) => {
     const img = new Image();
     img.decoding = "async";
     img.onload = () => resolve(img);
-    img.onerror = () => resolve(img);
+    img.onerror = () => resolve(null);
     img.src = src;
   });
 }
@@ -45,7 +48,6 @@ export default function Scrollytelling({ captions: captionsProp }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const captionRefs = useRef<(HTMLParagraphElement | null)[]>([]);
-  const frameLayerRefs = useRef<(HTMLDivElement | null)[]>([]);
   const introRef = useRef<HTMLDivElement>(null);
 
   const [reducedMotion, setReducedMotion] = useState(false);
@@ -80,15 +82,19 @@ export default function Scrollytelling({ captions: captionsProp }: Props) {
     let cancelled = false;
     let ctx: gsap.Context | null = null;
     const captions =
-          captionsProp?.length
-            ? captionsProp
-            : manifest.captions.length
-              ? manifest.captions
-              : FALLBACK_CAPTIONS;
+      captionsProp?.length
+        ? captionsProp
+        : manifest.captions.length
+          ? manifest.captions
+          : FALLBACK_CAPTIONS;
 
     (async () => {
-      const images = await Promise.all(manifest.frames.map((f) => loadImage(f.src)));
-      if (cancelled) return;
+      const loaded = await Promise.all(manifest.frames.map((f) => loadImage(f.src)));
+      const images = loaded.filter(
+        (img): img is HTMLImageElement => Boolean(img?.naturalWidth),
+      );
+      if (cancelled || images.length < 8) return;
+
       setReady(true);
 
       ctx = gsap.context(() => {
@@ -98,14 +104,14 @@ export default function Scrollytelling({ captions: captionsProp }: Props) {
         if (introRef.current) gsap.set(introRef.current, { opacity: 1, y: 0 });
         if (progressRef.current) gsap.set(progressRef.current, { scaleX: 0 });
 
-        const isSequence = manifest.mode === "sequence" && images.length >= 8;
         const canvas = canvasRef.current;
         const c2d = canvas?.getContext("2d");
+        const frameCount = images.length;
+        const scrollLength = scrollLengthForFrameCount(frameCount);
 
         const drawFrame = (progress: number) => {
-          if (!isSequence || !canvas || !c2d || images.length === 0) return;
-          const max = images.length - 1;
-          const idx = Math.min(max, Math.max(0, Math.round(progress * max)));
+          if (!canvas || !c2d || frameCount === 0) return;
+          const idx = frameIndexForProgress(progress, frameCount);
           const img = images[idx];
           if (!img?.naturalWidth) return;
 
@@ -140,14 +146,7 @@ export default function Scrollytelling({ captions: captionsProp }: Props) {
           c2d.drawImage(img, dx, dy, dw, dh);
         };
 
-        if (!isSequence) {
-          frameLayerRefs.current.forEach((el, i) => {
-            if (!el) return;
-            gsap.set(el, { opacity: i === 0 ? 1 : 0, scale: 1.02 });
-          });
-        } else {
-          drawFrame(0);
-        }
+        drawFrame(0);
 
         let lastCaption = 0;
 
@@ -155,14 +154,14 @@ export default function Scrollytelling({ captions: captionsProp }: Props) {
           scrollTrigger: {
             trigger: section,
             start: "top top",
-            end: "+=700%",
+            end: `+=${scrollLength}%`,
             pin: pin,
             scrub: 0.35,
             anticipatePin: 1,
             invalidateOnRefresh: true,
             onUpdate: (self) => {
-              const p = self.progress;
-              if (isSequence) drawFrame(p);
+              const p = Math.min(1, Math.max(0, self.progress));
+              drawFrame(p);
 
               const next = captionIndexForProgress(captions, p);
               if (next !== lastCaption) {
@@ -189,25 +188,6 @@ export default function Scrollytelling({ captions: captionsProp }: Props) {
             0.06,
           );
         }
-
-        if (!isSequence) {
-          const layers = frameLayerRefs.current.filter(Boolean) as HTMLDivElement[];
-          const n = Math.max(layers.length - 1, 1);
-          layers.forEach((el, i) => {
-            const start = i / (n + 0.35);
-            tl.fromTo(
-              el,
-              { scale: 1.02 },
-              { scale: 1.12, duration: 0.55, ease: "none" },
-              start,
-            );
-            if (i < layers.length - 1) {
-              const cross = (i + 0.72) / (n + 0.35);
-              tl.to(el, { opacity: 0, duration: 0.18, ease: "power1.inOut" }, cross);
-              tl.to(layers[i + 1], { opacity: 1, duration: 0.18, ease: "power1.inOut" }, cross);
-            }
-          });
-        }
       }, section);
 
       if (cancelled) {
@@ -232,9 +212,8 @@ export default function Scrollytelling({ captions: captionsProp }: Props) {
       : manifest?.captions?.length
         ? manifest.captions
         : FALLBACK_CAPTIONS;
-  const keyframeFrames =
-    manifest?.mode === "keyframes" ? manifest.frames : FALLBACK_FRAMES;
-  const useSequence = Boolean(!reducedMotion && manifest?.mode === "sequence");
+
+  const showScrollStory = Boolean(!reducedMotion && manifest);
 
   return (
     <section
@@ -258,10 +237,6 @@ export default function Scrollytelling({ captions: captionsProp }: Props) {
             }`}
           />
         </div>
-
-        {!manifest && !reducedMotion ? (
-          <div className="absolute inset-0 z-10 bg-gb-navy" aria-hidden="true" />
-        ) : null}
 
         {reducedMotion ? (
           <div className="relative flex h-full flex-col justify-center px-4 py-24 sm:px-6">
@@ -306,7 +281,7 @@ export default function Scrollytelling({ captions: captionsProp }: Props) {
         ) : (
           <>
             <div className="absolute inset-0 z-0">
-              {useSequence ? (
+              {showScrollStory ? (
                 <canvas
                   ref={canvasRef}
                   className={`h-full w-full transition-opacity duration-500 ${
@@ -315,27 +290,18 @@ export default function Scrollytelling({ captions: captionsProp }: Props) {
                   aria-hidden="true"
                 />
               ) : (
-                <div className="absolute inset-0">
-                  {keyframeFrames.map((frame, i) => (
-                    <div
-                      key={frame.src}
-                      ref={(el) => {
-                        frameLayerRefs.current[i] = el;
-                      }}
-                      className="absolute inset-0 will-change-transform"
-                      style={{ opacity: i === 0 ? 1 : 0 }}
-                    >
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={frame.src}
-                        alt=""
-                        className="h-full w-full object-cover"
-                        draggable={false}
-                      />
-                    </div>
-                  ))}
-                </div>
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={SEQUENCE_POSTER}
+                  alt=""
+                  className="h-full w-full object-cover"
+                  draggable={false}
+                />
               )}
+
+              {!ready && showScrollStory ? (
+                <div className="absolute inset-0 bg-gb-navy" aria-hidden="true" />
+              ) : null}
 
               <div
                 className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/15 to-black/35"
