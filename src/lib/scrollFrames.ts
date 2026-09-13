@@ -1,4 +1,4 @@
-/** Fallback keyframes when /scroll/sequence/*.webp is not present. */
+/** Dense WebP fly-through under /scroll/sequence/. */
 export type ScrollFrame = {
   src: string;
   alt: string;
@@ -10,9 +10,10 @@ export type ScrollCaption = {
 };
 
 export type FramesManifest = {
-  mode: "sequence" | "keyframes";
+  mode: "sequence";
   frames: ScrollFrame[];
   captions: ScrollCaption[];
+  frameCount: number;
   width?: number;
   height?: number;
 };
@@ -24,38 +25,39 @@ export const FALLBACK_CAPTIONS: ScrollCaption[] = [
   { at: 0.85, text: "Voted Best HVAC Contractor in Lee County." },
 ];
 
-export const FALLBACK_FRAMES: ScrollFrame[] = [
-  {
-    src: "/scroll/keyframes/kf-01-exterior.webp",
-    alt: "Cape Coral villa exterior with pool under Florida sun",
-  },
-  {
-    src: "/scroll/keyframes/kf-02-living.webp",
-    alt: "Living room open to pool with cool airflow from ceiling vents",
-  },
-  {
-    src: "/scroll/keyframes/kf-03-bedroom.webp",
-    alt: "Hallway into master bedroom with linear AC diffusers",
-  },
-  {
-    src: "/scroll/keyframes/kf-04-bathroom.webp",
-    alt: "Master ensuite bathroom with discreet ceiling vents",
-  },
-];
-
 type RemoteManifest = {
   frames?: string[];
   frameCount?: number;
   width?: number;
   height?: number;
   captions?: ScrollCaption[];
+  pattern?: string;
 };
 
+function buildSequenceManifest(
+  urls: string[],
+  captions: ScrollCaption[],
+  width = 1920,
+  height = 1080,
+): FramesManifest {
+  return {
+    mode: "sequence",
+    width,
+    height,
+    frameCount: urls.length,
+    captions,
+    frames: urls.map((src, i) => ({
+      src,
+      alt: `Gulf Breeze HVAC cinematic frame ${String(i + 1).padStart(3, "0")}`,
+    })),
+  };
+}
+
 /**
- * Prefer /scroll/sequence/manifest.json (sequence drop-in (manifest-driven)).
- * Fall back to probing frame_001.webp, then the 4 keyframes.
+ * Load the single fly-through frame sequence from /scroll/sequence/.
+ * Returns null when no dense sequence is available (no keyframe crossfade fallback).
  */
-export async function loadScrollFrames(): Promise<FramesManifest> {
+export async function loadScrollFrames(): Promise<FramesManifest | null> {
   try {
     const res = await fetch("/scroll/sequence/manifest.json", {
       cache: "no-store",
@@ -63,24 +65,21 @@ export async function loadScrollFrames(): Promise<FramesManifest> {
     if (res.ok) {
       const data = (await res.json()) as RemoteManifest;
       const urls = (data.frames ?? []).filter(Boolean);
-      if (urls.length >= 8) {
-        return {
-          mode: "sequence",
-          width: data.width ?? 1600,
-          height: data.height ?? 900,
-          captions: data.captions?.length ? data.captions : FALLBACK_CAPTIONS,
-          frames: urls.map((src, i) => ({
-            src,
-            alt: `Gulf Breeze HVAC cinematic frame ${String(i + 1).padStart(3, "0")}`,
-          })),
-        };
+      const count = data.frameCount ?? urls.length;
+      if (count >= 8 && urls.length >= 8) {
+        return buildSequenceManifest(
+          urls,
+          data.captions?.length ? data.captions : FALLBACK_CAPTIONS,
+          data.width ?? 1920,
+          data.height ?? 1080,
+        );
       }
     }
   } catch {
     /* fall through */
   }
 
-  // Probe first sequence frame in case manifest is absent but files exist
+  // Manifest absent but numbered frames exist on disk.
   try {
     const probe = await fetch("/scroll/sequence/frame_001.webp", {
       method: "HEAD",
@@ -95,25 +94,24 @@ export async function loadScrollFrames(): Promise<FramesManifest> {
         urls.push(src);
       }
       if (urls.length >= 8) {
-        return {
-          mode: "sequence",
-          width: 1600,
-          height: 900,
-          captions: FALLBACK_CAPTIONS,
-          frames: urls.map((src, i) => ({
-            src,
-            alt: `Gulf Breeze HVAC cinematic frame ${String(i + 1).padStart(3, "0")}`,
-          })),
-        };
+        return buildSequenceManifest(urls, FALLBACK_CAPTIONS);
       }
     }
   } catch {
     /* fall through */
   }
 
-  return {
-    mode: "keyframes",
-    captions: FALLBACK_CAPTIONS,
-    frames: FALLBACK_FRAMES,
-  };
+  return null;
+}
+
+/** Map scroll progress [0,1] to a frame index; clamps at the last frame (no wrap). */
+export function frameIndexForProgress(progress: number, frameCount: number): number {
+  if (frameCount <= 1) return 0;
+  const p = Math.min(1, Math.max(0, progress));
+  return Math.min(frameCount - 1, Math.round(p * (frameCount - 1)));
+}
+
+/** Scroll distance (viewport %) for one full pass through the sequence. */
+export function scrollLengthForFrameCount(frameCount: number): number {
+  return Math.max(400, Math.round(frameCount * 3.33));
 }
