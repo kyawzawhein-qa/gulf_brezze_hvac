@@ -24,13 +24,13 @@ npm start
 
 - Next.js App Router + TypeScript
 - Tailwind CSS v4
-- GSAP ScrollTrigger (cinematic scrollytelling)
+- GSAP ScrollTrigger (scroll-scrub cinematic fly-through: WebP frame sequence on canvas)
 - Client-side mocked AI chat dispatcher (no external APIs)
 
 ## What’s on the page
 
 1. **Hero** — 24/7 emergency AC headline, sticky header with phone CTA, Book / Chat actions  
-2. **Scrollytelling** — Scroll-pinned SVG story: coastal home → HVAC cutaway → cool comfort  
+2. **Scrollytelling** — Scroll-scrubbed cinematic fly-through: GSAP ScrollTrigger pins the section, loads a dense WebP frame sequence from `/public/scroll/sequence/` (via `manifest.json`), and draws frames onto a canvas as you scroll; captions fade in/out with progress  
 3. **Services** — Emergency repair, replacement, tune-ups, IAQ + service-area cities  
 4. **How it works** — AI dispatcher → book slot → tech SMS (demo narrative)  
 5. **Trust** — Plausible local reviews + response-time stats  
@@ -54,7 +54,7 @@ Valid demo ZIPs include common Lee County codes such as `33901`, `33904`, `33914
 
 - Chat dialog uses `role="dialog"`, labelled title, focus on open, and `aria-live` for messages  
 - Focus-visible rings on interactive controls  
-- `prefers-reduced-motion`: scroll-pin animation falls back to a static final scene; CSS motion animations are reduced
+- `prefers-reduced-motion`: scroll-scrub fly-through is replaced by static keyframe stills (`/scroll/keyframes/kf-01` … `kf-03`); CSS motion animations are reduced
 
 ## Project structure
 
