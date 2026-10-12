@@ -1,19 +1,16 @@
 import { createHmac, timingSafeEqual } from "crypto";
 import { cookies } from "next/headers";
+import { getAdminPassword, getSessionSecret } from "./admin-config";
 
 export const SESSION_COOKIE = "gb_admin_session";
 const SESSION_TTL_MS = 1000 * 60 * 60 * 24 * 7; // 7 days
 
-function secret() {
-  return process.env.ADMIN_PASSWORD || "gulfbreeze";
-}
-
-export function getAdminPassword() {
-  return process.env.ADMIN_PASSWORD || "gulfbreeze";
-}
-
 function sign(payload: string) {
-  return createHmac("sha256", secret()).update(payload).digest("hex");
+  const key = getSessionSecret();
+  if (!key) {
+    throw new Error("Admin session signing is not configured");
+  }
+  return createHmac("sha256", key).update(payload).digest("hex");
 }
 
 export function createSessionToken() {
@@ -23,10 +20,15 @@ export function createSessionToken() {
 }
 
 export function verifySessionToken(token: string | undefined | null): boolean {
-  if (!token) return false;
+  if (!token || !getSessionSecret()) return false;
   const [body, sig] = token.split(".");
   if (!body || !sig) return false;
-  const expected = sign(body);
+  let expected: string;
+  try {
+    expected = sign(body);
+  } catch {
+    return false;
+  }
   try {
     const a = Buffer.from(sig);
     const b = Buffer.from(expected);
@@ -47,6 +49,7 @@ export async function isAdminAuthenticated(): Promise<boolean> {
 
 export function passwordMatches(input: string) {
   const expected = getAdminPassword();
+  if (!expected) return false;
   const a = Buffer.from(input);
   const b = Buffer.from(expected);
   if (a.length !== b.length) {

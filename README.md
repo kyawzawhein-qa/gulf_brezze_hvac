@@ -83,8 +83,8 @@ npm run dev
 ### Login
 
 - URL: [http://localhost:3000/admin/login](http://localhost:3000/admin/login)
-- Default password: `gulfbreeze` (env `ADMIN_PASSWORD`)
-- Change it by setting `ADMIN_PASSWORD` in `.env` and restarting the server
+- Password: set `ADMIN_PASSWORD` in `.env` (see `.env.example`) and restart the server
+- For production, `ADMIN_PASSWORD` must be set in the deployment environment before deploy; admin login is disabled if it is missing or still the placeholder
 
 ### What you can edit
 
